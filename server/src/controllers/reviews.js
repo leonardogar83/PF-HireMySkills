@@ -84,6 +84,7 @@ const Professional_Review = async (req, res) => {
   try {
     const reviews_list = await reviews.findAll({
       where: { professionalId },
+      include: users,
     });
     res.json(reviews_list);
   } catch (error) {
