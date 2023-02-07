@@ -2,7 +2,7 @@ const users = require('../models/users.js');
 
 const patchUser = async (req, res) => {
     const { id } = req.params;
-    const { name, photo, town, email, contact } = req.body;
+    const { name, photo, town, email, contact, sub } = req.body;
     try {
         const user = "";
         if(name && photo && town && email && contact) {
@@ -29,8 +29,10 @@ const patchUser = async (req, res) => {
             // console.log(user, 'USER town');
         }
         if(email) {
+            const userRep = await users.findAll({ where: { email: email }})
+            if(userRep.length > 0) return res.send({ message: "User already exists" });
+            // console.log(userRep, 'USER email');
             const user = await users.update({ email: email }, { where: { id: id }});
-            // console.log(user, 'USER email');
         }
         if(contact) {
             const user = await users.update({ contact: contact }, { where: { id: id }});
