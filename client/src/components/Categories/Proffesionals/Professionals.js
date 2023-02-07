@@ -1,342 +1,68 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Navbar from "../../Navbar/Navbar";
+import Footer from "../../Footer/Footer";
+import { getProfessionals } from "../../../redux/actions/actions";
+import styles from "./Professionals.module.css";
+import imgDefault from "../../../assets/imgDefault.jpg";
+import ShowCard from "../../AllProfessionals/ShowCard";
+import LoaderGeneral from "../../LoaderGeneral/LoaderGeneral";
 
 function Professionals() {
-const { id } = useParams();
-console.log(id)
+  const { id } = useParams();
+  const navegate = useNavigate();
+  const dispatch = useDispatch();
+  const allProfessionals = useSelector((state) => state.allProfessionals);
 
-const Workers=[
-    {
-        id:0,
-        name: "MEDICINA GENERAL" ,
-        profesional:[
-            {
-            worker:"Juan"
-            },
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Diego"
-            },
+  useEffect(() => {
+    dispatch(getProfessionals(id));
+  }, [dispatch, id]);
 
-            
-        ]
-
-    },
-    {
-        id:1,
-        name: "ODONTOLOGIA" ,
-        profesional:[
-            {
-            worker:"Alfredo"
-            },
-            {
-            worker:"Roberto"
-            },
-            {
-            worker:"Franco"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:2,
-        name: "VETERINARIA" ,
-        profesional:[
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Angel"
-            },
-            {
-            worker:"Leo"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:3,
-        name: "ADMINISTRACION" ,
-        profesional:[
-            {
-            worker:"Pepito"
-            },
-            {
-            worker:"Menganito"
-            },
-            {
-            worker:"Persona"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:4,
-        name: "ACCOUNTING" ,
-        profesional:[
-            {
-            worker:"Godofredo"
-            },
-            {
-            worker:"Alexander"
-            },
-            {
-            worker:"Alex2"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:5,
-        name: "MANAGEMENT" ,
-        profesional:[
-            {
-            worker:"Persona3"
-            },
-            {
-            worker:"Monica"
-            },
-            {
-            worker:"Taatiana"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:6,
-        name: "ELECTRIC" ,
-        profesional:[
-            {
-            worker:"Juan"
-            },
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Diego"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:7,
-        name: "MECHANICS" ,
-        profesional:[
-            {
-            worker:"Alfredo"
-            },
-            {
-            worker:"Roberto"
-            },
-            {
-            worker:"Franco"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:7,
-        name: "ENVIRRONMENTAL" ,
-        profesional:[
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Angel"
-            },
-            {
-            worker:"Leo"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:8,
-        name: "CLEANING" ,
-        profesional:[
-            {
-            worker:"Pepito"
-            },
-            {
-            worker:"Menganito"
-            },
-            {
-            worker:"Persona"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:9,
-        name: "CARE ADULTS" ,
-        profesional:[
-            {
-            worker:"Godofredo"
-            },
-            {
-            worker:"Alexander"
-            },
-            {
-            worker:"Alex2"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:10,
-        name: "PLUMBING" ,
-        profesional:[
-            {
-            worker:"Persona3"
-            },
-            {
-            worker:"Monica"
-            },
-            {
-            worker:"Taatiana"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:11,
-        name: "TELEFONIA" ,
-        profesional:[
-            {
-            worker:"Persona3"
-            },
-            {
-            worker:"Monica"
-            },
-            {
-            worker:"Taatiana"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:12,
-        name: "INTERNET" ,
-        profesional:[
-            {
-            worker:"Juan"
-            },
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Diego"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:13,
-        name: "TELEVISION" ,
-        profesional:[
-            {
-            worker:"Alfredo"
-            },
-            {
-            worker:"Roberto"
-            },
-            {
-            worker:"Franco"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:14,
-        name: "DISEÑO WEB" ,
-        profesional:[
-            {
-            worker:"Luis"
-            },
-            {
-            worker:"Angel"
-            },
-            {
-            worker:"Leo"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:15,
-        name: "APLICACIONES" ,
-        profesional:[
-            {
-            worker:"Pepito"
-            },
-            {
-            worker:"Menganito"
-            },
-            {
-            worker:"Persona"
-            },
-
-            
-        ]
-
-    },
-    {
-        id:16,
-        name: "SITIOS WEB" ,
-        profesional:[
-            {
-            worker:"Godofredo"
-            },
-            {
-            worker:"Alexander"
-            },
-            {
-            worker:"Alex2"
-            },
-
-            
-        ]
-
-    },
-]
-
-let aux = Workers.filter((wr)=>wr.id===parseInt(id))
-console.log(aux);
+  // console.log(allProfessionals);
+  //console.log(id);
+  let aux = allProfessionals.filter((wr) =>
+    wr.professions.some((sk) => sk.id === parseInt(id))
+  );
+  // console.log(aux);
   return (
-    <div>Professionals</div>
-  )
+    <div className={styles.divProf}>
+      <Navbar />
+      <div className={styles.profBtn}>
+        <button onClick={() => navegate(-1)}>
+          <i className="fa-solid fa-circle-chevron-left"></i>
+        </button>
+      </div>
+      <div className="containerdelascards2">
+        <h1 className="text-center text-light fs-1 ">Professionals</h1>
+        <div className="container d-flex justify-content-center align items-center h-100">
+          {aux.length ? (
+            aux.map((prof) => {
+              return (
+                <div
+                  key={prof.id}
+                  className="col-md-4 d-flex justify-content-around"
+                >
+                  <ShowCard
+                    name={prof.name}
+                    photo={prof.photo}
+                    id={prof.id}
+                    rating={prof.rating}
+                    professions={prof.skills.join(", ")}
+                  />
+                </div>
+              );
+            })
+          ) : (
+            <div className="d-flex">
+              <h1 className={styles.notProf}>Not found professionals</h1>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Professionals
+export default Professionals;
