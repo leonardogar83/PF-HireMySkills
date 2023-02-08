@@ -17,29 +17,23 @@ const patchUser = async (req, res) => {
             return user
         }
         if(name) {
-            const user = await users.update({ name: name }, { where: { id: id }});
-            // console.log(user, 'USER name');
+            await users.update({ name: name }, { where: { id: id }});
+
         }
         if(photo) {
-            const user = await users.update({ photo: photo }, { where: { id: id }});
-            // console.log(user, 'USER photo');
-        }
-        if(town) {
-            const user = await users.update({ town: town }, { where: { id: id }});
-            // console.log(user, 'USER town');
+            await users.update({ photo: photo }, { where: { id: id }});
         }
         if(email) {
             const userRep = await users.findAll({ where: { email: email }})
             if(userRep.length > 0) return res.send({ message: "User already exists" });
-            // console.log(userRep, 'USER email');
-            const user = await users.update({ email: email }, { where: { id: id }});
+            await users.update({ email: email }, { where: { id: id }});
+        }
+        if(town) {
+            await users.update({ town: town }, { where: { id: id }});
         }
         if(contact) {
-            const user = await users.update({ contact: contact }, { where: { id: id }});
-            // console.log(user, 'USER contact');
+            await users.update({ contact: contact }, { where: { id: id }});
         }
-        // if(name) }
-        // await user.save()
 
         res.send({ message: 'Modified user' });
     } catch (error) {
