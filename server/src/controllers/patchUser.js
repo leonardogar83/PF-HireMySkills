@@ -47,4 +47,4 @@ const patchUser = async (req, res) => {
     };
 };
 
-module.exports = { patchUser };
+module.exports = { patchUser };  

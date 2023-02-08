@@ -16,16 +16,15 @@ const getDBInfo = async (req, res) => {
           },
         ],
       });
-      console.log(get, "GET");
-      const filer = get.filter((pf) => pf.deleted === false);
-      res.send(filer);
+      // console.log(get, "GET");
+      res.send(get);
     } else {
       const getname = await professionals.findAll();
       const filter = getname.filter(
         (e) => e.name.toLowerCase() === name.toLowerCase()
       );
       if (filter.deleted === false) return res.send(filter);
-      else return res.send({ message: error });
+      else return res.send({ message: 'Profession not found' });
     }
   } catch (error) {
     res.send({ message: error });
