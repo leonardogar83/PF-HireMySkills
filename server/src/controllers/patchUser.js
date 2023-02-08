@@ -15,25 +15,25 @@ const patchUser = async (req, res) => {
             }, { where: { id: id } })
             // console.log(user, 'USER');
             return user
-        }
+        };
         if(name) {
             await users.update({ name: name }, { where: { id: id }});
 
-        }
+        };
         if(photo) {
             await users.update({ photo: photo }, { where: { id: id }});
-        }
+        };
         if(email) {
             const userRep = await users.findAll({ where: { email: email }})
             if(userRep.length > 0) return res.send({ message: "User already exists" });
             await users.update({ email: email }, { where: { id: id }});
-        }
+        };
         if(town) {
             await users.update({ town: town }, { where: { id: id }});
-        }
+        };
         if(contact) {
             await users.update({ contact: contact }, { where: { id: id }});
-        }
+        };
 
         res.send({ message: 'Modified user' });
     } catch (error) {
