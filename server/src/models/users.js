@@ -50,11 +50,6 @@ const users =
         type: DataTypes.STRING,
         allowNull: true,
       },
-      role: {
-        type: DataTypes.ENUM,
-        values: ["admin", "user", "professional"],
-        defaultValue: "user",
-      },
     },
 
     {
