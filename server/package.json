@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "\"A web page for hire professional services and pay for that.\"",
+  "description": "A web page for hire professional services and pay for that.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "build": "npm install"
+    "start": "node index.js",
+    "build": "echo \"Nothing to do" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -23,14 +23,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemailer": "^6.9.0",
-    "nodemon": "^2.0.20",
     "pg": "^8.8.0",
     "sequelize": "^6.28.0",
-    "stripe": "^11.9.1"
+    "nodemon": "^2.0.20"
   },
   "devDependencies": {
     "eslint": "^8.32.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    
   }
 }

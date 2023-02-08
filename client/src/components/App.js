@@ -1,55 +1,39 @@
+
 import "./App.css";
-import { Fragment } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { Fragment } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./Landing/Landing";
 import Home from "./Home/Home";
+import NavBar from "./Navbar/Navbar";
 import About from "./About/About";
+import GeneralCategory from "./Categories/General/GeneralCategory";
 import SpecificCategory from "./Categories/Specific/SpecificCategory";
-import Professionals from "./Categories/Proffesionals/Professionals";
-import Professional from "./Categories/Professional/Professional";
 import FAQs from "./FAQs/FAQs";
+
+import FormStaff from "./Form/FormStaff";
+import JoinForm from "./Join/JoinForm";
 import SignIn from "./SignIn/Acc/SignIn";
-import AllProfessionals from "./AllProfessionals/AllProfessionals";
-import Form from "./Form/FormStaffOption";
-import FormServices from "./Services/Form/FormServices";
-import Contact from "./Contact-Us/Contact";
-import ShoppingCart from "./Shopping/ShoppingCart";
-import UserType from "./UserType/UserType";
-import TeamCards from "./Team/TeamCards/TeamCards";
-import Category from "./Categories/General/Category";
-import DashboardProfessional from "./ProfileProfessional/DashboardProfessional";
+import Team from './Team/Team'
+
 
 function App() {
   return (
     <BrowserRouter>
-      <Fragment>
-        <Routes>
+    <Fragment>
+      <Routes>
+
           <Route path="/" element={<Landing />} />
-          <Route path="/creators" element={<TeamCards />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/categories" element={<Category />} />
-          <Route
-            path="/categories/profession/:id"
-            element={<SpecificCategory />}
-          />
-          <Route
-            path="/categories/profession/professionals/:id"
-            element={<Professionals />}
-          />
-          <Route path="/professionals/:id" element={<Professional />} />
-          <Route path="/professionals" element={<AllProfessionals />} />
-          <Route path="/FAQs" element={<FAQs />} />
+          <Route path="home" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="/categories" element={<GeneralCategory />} />
+          <Route path="/categories/:id" element={<SpecificCategory />} />
+          <Route path="FAQs" element={<FAQs />} />
           <Route path="/account" element={<SignIn />} />
-          <Route path="/contact-us" element={<Contact />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/form-services" element={<FormServices />} />
-          <Route path="/shopping" element={<ShoppingCart />} />
-          <Route path="/usertype" element={<UserType />} />
-          <Route
-            path="/professionalDashboard"
-            element={<DashboardProfessional />}
-          />
+          <Route path='/creators' element={<Team/>}/>
+          {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
+        
+
         </Routes>
       </Fragment>
     </BrowserRouter>
