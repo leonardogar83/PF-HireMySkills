@@ -12,6 +12,7 @@ const email = require("./email.js");
 const contactus = require("./contactus.js");
 const filters = require("./filters");
 const addcolumn = require("./addcolumn.js");
+const userbuyingproduct = require("./userbuyingproduct.js");
 
 router.use("/category", category); //crear categorias y hacer put
 router.use("/profession", profession); // crear profession
@@ -25,5 +26,6 @@ router.use("/email", email); // plantilla para envio de notificaciones por mail
 router.use("/contactus", contactus); // para el formulario Contact Us
 router.use("/filters", filters);
 router.use("/addcolumn", addcolumn);
+router.use("/buy/:productId/:userId", userbuyingproduct);
 
 module.exports = router;
