@@ -10,7 +10,6 @@ const createUser = async (req, res, next) => {
         if(userFind.length) return res.send({ message: 'Cliente repit'});
         else {
             await users.create({ name, photo, email, town, contact });
-            console.log(users, 'USER');
         };
         res.send({ message: 'User create'});
     } catch (error) {

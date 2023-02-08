@@ -57,6 +57,7 @@ const professionals =
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+     
     },
     {
       timestamps: false,
