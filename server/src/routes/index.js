@@ -13,6 +13,7 @@ const contactus = require("./contactus.js");
 const filters = require("./filters");
 const addcolumn = require("./addcolumn.js");
 const userbuyingproduct = require("./userbuyingproduct.js");
+const checkout = require("./paymentCheckout");
 
 router.use("/category", category); //crear categorias y hacer put
 router.use("/profession", profession); // crear profession
@@ -27,5 +28,6 @@ router.use("/contactus", contactus); // para el formulario Contact Us
 router.use("/filters", filters);
 router.use("/addcolumn", addcolumn);
 router.use("/buy/:productId/:userId", userbuyingproduct);
+router.use("/checkout", checkout);
 
 module.exports = router;
