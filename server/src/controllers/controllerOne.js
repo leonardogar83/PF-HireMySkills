@@ -1,11 +1,32 @@
-const { Error } = require("sequelize");
+const Profession = require("../models/profession.js");
+
 const professionals = require("../models/professionals.js");
 // ruta traer toda la data
 const getDBInfo = async (req, res) => {
+  const { name } = req.query;
   try {
-    // btraemos toda la informacion de base de datos
-    const get = await professionals.findAll(id);
-    res.send(get);
+    if (!name) {
+      const get = await professionals.findAll({
+        include: [
+          {
+            model: Profession,
+            attributes: {
+              attributes: ["Profession"],
+            },
+          },
+        ],
+      });
+      console.log(get, "GET");
+      const filer = get.filter((pf) => pf.deleted === false);
+      res.send(filer);
+    } else {
+      const getname = await professionals.findAll();
+      const filter = getname.filter(
+        (e) => e.name.toLowerCase() === name.toLowerCase()
+      );
+      if (filter.deleted === false) return res.send(filter);
+      else return res.send({ message: error });
+    }
   } catch (error) {
     res.send({ message: error });
   }
@@ -15,55 +36,49 @@ const postcreateprofessional = async (req, res) => {
   const {
     name,
     description,
-    skills,
     photo,
     email,
     town,
+    state,
+    country,
     contact,
-    rating,
     portfolio,
-  } = req.body; //requerimos la informacion del cliente
-
+    skills,
+  } = req.body;
+  // console.log(req.body, "::: es aqui");
   try {
-    // aqui buscamos si el cliente esta repetido por email
     const repetido = await professionals.findOne({ where: { email: email } });
-    if (repetido) {
-      res.send("client reppit");
-      // verificamos que se llene el formulario
-    } else if (
-      !name ||
-      !description ||
-      !photo ||
-      !email ||
-      !town ||
-      !contact ||
-      !rating ||
-      !portfolio
-    ) {
-      res.send("insert information");
-      // se crea nuevo presta servicios
-    } else {
-      await professionals.create({
-        name,
-        description,
-        photo,
-        email,
-        town,
-        contact,
-        rating,
-        portfolio,
-      });
+    if (repetido) return res.status(400).send("Professional already exists");
 
-      res.send("created successfully");
-    }
+    // verificamos que se llene el formulario
+
+    if (!name || !skills || !email || !town || !contact)
+      return res.status(400).send("insert information");
+    // se crea nuevo presta servicios
+    const newProfes = await professionals.create({
+      name,
+      description,
+      photo,
+      email,
+      town,
+      state,
+      country,
+      contact,
+      portfolio,
+      skills,
+    });
+    const newProfesion = await Profession.findAll({
+      where: { profession: skills },
+    });
+    newProfes.addProfession(newProfesion);
+
+    res.send("created successfully");
   } catch (error) {
-    console.log(error);
-    res.send({ massage: error });
+    res.send(error.message);
   }
 };
-// ruta de borrado logico
+
 const borradologico = async (req, res) => {
-  // requerimos id de professional
   const { id } = req.params;
   try {
     // buscamos si se encuentra ya eliminado
