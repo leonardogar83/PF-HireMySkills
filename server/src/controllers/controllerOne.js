@@ -82,20 +82,15 @@ const borradologico = async (req, res) => {
   try {
     // buscamos si se encuentra ya eliminado
     const idexiste = await professionals.findByPk(id);
-    if (idexiste.deleted === true) {
-      res.send(`the ${id} is inactive`);
-    } else {
-      // buscamos id  y se elimina
-      const borrado = await professionals.update(
-        { deleted: true },
-        {
-          where: {
-            id: id,
-          },
-        }
-      );
-      res.send(`resource removed  id : ${id}`);
+    console.log(idexiste.deleted, 'PROFFFF');
+    if(idexiste.deleted === true) {
+      await professionals.update({ deleted: false }, { where: { id: id } });
+      res.send({ message: 'Professional is active' });
     }
+    if (idexiste.deleted === false) {
+      await professionals.update({ deleted: true} , { where: { id: id } });
+      res.send({ message: 'Professional is already deleted' });
+    } 
   } catch (error) {
     res.send(error);
   }
