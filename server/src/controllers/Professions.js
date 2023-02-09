@@ -21,10 +21,15 @@ const searchProfession = async (req, res) => {
     try {
       // const findProfessionals = await professionals.findAll();
       // console.log(findProfessionals, 'PROFESIONAL');
-      const getname = await professionals.findAll();
+      const getname = await Profession.findAll();
+      console.log(getname, 'RESULT');
       const result = getname.filter(
-      (person) => person.profession.toLowerCase().indexOf(profession.toLowerCase()) == 0
-      );
+        (person) => person.profession.toLowerCase().indexOf(profession.toLowerCase()) == 0
+        );
+      
+      // const result = getname.filter(
+      // (person) => person.profession.toLowerCase().indexOf(profession.toLowerCase()) == 0
+      // );
       if (!filter) {
         if (result.length) return res.send(result);
         else return res.send({ message: "Profession not found" });
