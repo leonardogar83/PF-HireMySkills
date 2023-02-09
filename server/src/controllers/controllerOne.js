@@ -7,7 +7,6 @@ const getDBInfo = async (req, res) => {
   try {
     if (!name) {
       const get = await professionals.findAll({
-        where: { deleted: false },
         include: [
           {
             model: Profession,
