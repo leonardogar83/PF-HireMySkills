@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Landing.module.css";
 import carpenter from "../../assets/carpintero.jpg";
 import code from "../../assets/code.jpg";
-import admin from "../../assets/admin.jpg";
+import admin from "../../assets/admin.jpeg";
 
 const Landing = () => {
   return (
