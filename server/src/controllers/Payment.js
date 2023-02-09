@@ -1,8 +1,9 @@
-const express = require('express');
-const Stripe = require('stripe');
+const express = require("express");
+const Stripe = require("stripe");
 
-const stripe = new Stripe('sk_test_51MUXsPIUj9w23It91QrfLJPJ5f35bB7vIzqE7jFkXpnNBitVcLcWKFZmzMs9xRaBSh7gAnydGuK0E58HGY0H82oR00nvki5Fxh')
-
+const stripe = new Stripe(
+  "sk_test_51MUXsPIUj9w23It91QrfLJPJ5f35bB7vIzqE7jFkXpnNBitVcLcWKFZmzMs9xRaBSh7gAnydGuK0E58HGY0H82oR00nvki5Fxh"
+);
 
 // const cors = require('cors');
 
@@ -12,33 +13,31 @@ const app = express();
 
 app.use(express.json());
 
-const Checkout= async (req, res) => {
-    // you can get more data to find in a database, and so on
-    const { id, amount,email } = req.body;
-  
-    try {
-      const payment = await stripe.paymentIntents.create({
+const Checkout = async (req, res) => {
+  // you can get more data to find in a database, and so on
+  const { id, amount, email } = req.body;
+
+  try {
+    const payment = await stripe.paymentIntents
+      .create({
         amount,
         currency: "USD",
         description: "Profession Service",
-        email:email,
+        email: email,
         payment_method: id,
         confirm: true,
       })
-      .then(res=>{
-        console.log(res, "RESPUESTA STRIPE")
-      })
+      .then((res) => {
+        console.log(res, "RESPUESTA STRIPE");
+      });
 
-  
-      console.log("PAAYYYMENT ",payment);
-  
-      return res.status(200).json({ message: "Successful Payment" });
-    } catch (error) {
-      console.log(error);
-      return res.json({ message: error.raw.message });
-    }
-  };
-  
-  module.exports={
-    Checkout
-}
+    console.log("PAAYYYMENT ", payment);
+
+    return res.status(200).json({ message: "Successful Payment" });
+  } catch (error) {
+    console.log(error);
+    return res.json({ message: error.raw.message });
+  }
+};
+
+module.exports = Checkout;
