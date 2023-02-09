@@ -94,7 +94,6 @@ const Review = () => {
               gradientDuoTone="purpleToBlue"
               type="submit"
               className={styles.Button}
-              disabled
             >
               Comment
             </Button>
