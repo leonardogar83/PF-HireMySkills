@@ -16,7 +16,7 @@ const getDBInfo = async (req, res) => {
           },
         ],
       });
-      // console.log(get, "GET");
+
       res.send(get);
     } else {
       const getname = await professionals.findAll();
@@ -24,7 +24,7 @@ const getDBInfo = async (req, res) => {
         (e) => e.name.toLowerCase() === name.toLowerCase()
       );
       if (filter.deleted === false) return res.send(filter);
-      else return res.send({ message: 'Profession not found' });
+      else return res.send({ message: "Profession not found" });
     }
   } catch (error) {
     res.send({ message: error });
@@ -82,15 +82,15 @@ const borradologico = async (req, res) => {
   try {
     // buscamos si se encuentra ya eliminado
     const idexiste = await professionals.findByPk(id);
-    console.log(idexiste.deleted, 'PROFFFF');
-    if(idexiste.deleted === true) {
+    console.log(idexiste.deleted, "PROFFFF");
+    if (idexiste.deleted === true) {
       await professionals.update({ deleted: false }, { where: { id: id } });
-      res.send({ message: 'Professional is active' });
+      res.send({ message: "Professional is active" });
     }
     if (idexiste.deleted === false) {
-      await professionals.update({ deleted: true} , { where: { id: id } });
-      res.send({ message: 'Professional is already deleted' });
-    } 
+      await professionals.update({ deleted: true }, { where: { id: id } });
+      res.send({ message: "Professional is already deleted" });
+    }
   } catch (error) {
     res.send(error);
   }

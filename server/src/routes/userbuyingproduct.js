@@ -9,9 +9,10 @@ const userbuyingproduct = async (req, res) => {
   try {
     const user = await users.findByPk(userId);
     const product = await products.findByPk(productId);
-    // const professional_owner = await
+     const professional_owner = await professionals.findByPk(product.professionalId)
 
     await user.addProducts(product);
+    await user.addProfessionals(professional_owner);
 
     res.send("relation made successfully");
   } catch (error) {

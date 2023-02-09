@@ -48,7 +48,7 @@ const users =
       },
       token: {
         type: DataTypes.STRING,
-        allowNull: true,
+        defaultValue: "user",
       },
     },
 

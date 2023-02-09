@@ -7,6 +7,7 @@ const getprofesinalsid = async (req, res) => {
     const getid = await professionals.findByPk(id, {
       include: products,
     });
+    if (getid.deleted === true) return res.send("Professional Not Found!");
     res.send(getid);
   } catch (error) {
     res.send(error);
