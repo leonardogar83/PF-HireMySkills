@@ -26,8 +26,11 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  
   GET_COULD_REVIEW,
   GET_PROFESSIONAL_REVIEW,
+  PATCH_USERS,
+  PATCH_PROFESSIONALS
 } from "../../utils";
 
 export const initialState = {
@@ -36,8 +39,11 @@ export const initialState = {
   detail: [],
   subCategory: [],
   town: [],
-  user: [],
+  user:[],
+  userPatch:[],
+  userDelete:[],
   userId: [],
+  profDeleted:[],
   professionals: [],
   services: [],
   reviews: [],
@@ -52,13 +58,13 @@ if (localStorage.getItem("shoppingCart")) {
   initialState.shoppingCart = [];
 }
 
-if (localStorage.getItem("allProfessionals")) {
-  initialState.allProfessionals = JSON.parse(
-    localStorage.getItem("allProfessionals")
-  );
-} else {
-  initialState.allProfessionals = [];
-}
+// if (localStorage.getItem("allProfessionals")) {
+//   initialState.allProfessionals = JSON.parse(
+//     localStorage.getItem("allProfessionals")
+//   );
+// } else {
+//   initialState.allProfessionals = [];
+// }
 
 export function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -69,6 +75,7 @@ export function rootReducer(state = initialState, action) {
       };
 
     case GET_SUB_CATEGORY:
+      console.log(action.payload, "category");
       return {
         ...state,
         subCategory: action.payload,
@@ -169,7 +176,7 @@ export function rootReducer(state = initialState, action) {
     //   };
 
     case GET_REVIEWS:
-      // console.log(action.payload, "WW");
+      console.log(action.payload, "WW");
       return {
         ...state,
         reviews: action.payload,
@@ -203,6 +210,28 @@ export function rootReducer(state = initialState, action) {
         ...state,
         allProfessionals: array,
       };
+    
+      case GET_USER:
+        console.log("PAAYLOAD", action.payload)
+         return{
+           ...state,
+           user: action.payload,
+         }
+         case PATCH_USERS:
+          return {
+            ...state,
+            userPatch: action.payload
+          }
+        case PATCH_PROFESSIONALS:
+          return {
+            ...state,
+            professionalPatch: action.payload
+          }
+          case DELETE_USER:
+            return {
+              ...state,
+              userDelete:action.payload
+            }  
 
     case FILTER_TOWN:
       let townf = [];
@@ -215,6 +244,12 @@ export function rootReducer(state = initialState, action) {
         });
       }
       return { ...state, town: townf };
+
+    case DELETE_PROFILE:
+      return{
+        ...state,
+        profDeleted: action.payload
+      }
 
     case FILTER_BY_PROVINCE:
       let city = [];
@@ -262,6 +297,13 @@ export function rootReducer(state = initialState, action) {
         ...state,
         allProfessionals: arra,
       };
+
+      case POST_USER:
+            return{
+                ...state,
+                user: [...state.user, action.payload]
+            }
+
 
     default:
       return state;

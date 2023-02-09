@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 import {
   GET_CATEGORIES,
   GET_SUB_CATEGORY,
@@ -41,6 +41,8 @@ import {
   urlProducts,
   urlReviews,
   urlShoppingcart,
+  PATCH_USERS,
+  PATCH_PROFESSIONALS,
 } from "../../utils";
 
 let url = "https://hiremyskillsbackend.onrender.com";
@@ -88,6 +90,8 @@ export function getProfessionalById(id) {
     });
   };
 }
+
+
 export function clearProfessional() {
   return function (dispatch) {
     return dispatch({
@@ -139,6 +143,7 @@ export function postProfessional(data) {
 }
 
 export function deleteProfessional(id) {
+  console.log("DELTED ACTION", id)
   return async function (dispatch) {
     axios
       .delete(`${urlProfessionals}/${id}`)
@@ -146,12 +151,58 @@ export function deleteProfessional(id) {
   };
 }
 
-export const addToCart = (id) => ({
-  type: ADD_TO_CART,
-  payload: id,
-});
 
-//--------------Review ------------
+export function orderByReviews(payload) {
+  return {
+    type: ORDER_BY_REVIEWS,
+    payload,
+  };
+}
+
+export function addToCart(services, userTokken){
+  const showAlert = ()=>{
+    Swal.fire({
+    title: "Your service was added to cart successfuly",
+    icon: "success",
+    footer: "<b>Continue enjoy our services</b>"
+})
+}
+  const item = [services, userTokken]
+    return async function(dispatch){
+        axios.post(urlShoppingcart, item)
+        .then(res=>
+            dispatch({type:ADD_TO_CART, payload: services}))
+            showAlert()
+    }
+}
+// export const addToCart = (id) => ({
+//   type: ADD_TO_CART,
+//   payload: id,
+// });
+
+
+export function patchUser (user, id){
+  console.log("USERPATCH   ", user  )
+  return async function (dispatch){
+    axios 
+      .patch(`${urlUsers}/${id}`, user)
+      .then((res)=>console.log("actionRES ", res.data))
+      .then((res)=> dispatch({type: PATCH_USERS, payload: res.data}))
+  }
+}
+
+export function patchProfessionals(profesional, id){
+  console.log("USERPATCH   ", profesional  )
+
+  return async function (dispatch){
+    axios
+      .patch(`${urlProfessionals}/${id}`,profesional)
+      .then((res)=>console.log("PROFESIONAL patch", res.data))
+      .then((res)=>dispatch({type:PATCH_PROFESSIONALS, payload:res.data}))
+  }
+}
+
+
 export function postReviews(input) {
   return async function (dispatch) {
     await axios
@@ -184,6 +235,7 @@ export function getCouldReview(professionalId, userId) {
 }
 
 export function getProfessionalReview(professionalId) {
+  console.log(professionalId, "idprof");
   return async function (dispatch) {
     await axios.get(`${urlReviews}/${professionalId}`).then((res) =>
       dispatch({
