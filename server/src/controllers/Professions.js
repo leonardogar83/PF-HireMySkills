@@ -19,10 +19,11 @@ const searchProfession = async (req, res) => {
     res.send(Prof_list);
   } else {
     try {
-      const findProfessionals = await professionals.findAll();
+      // const findProfessionals = await professionals.findAll();
       // console.log(findProfessionals, 'PROFESIONAL');
-      const result = findProfessionals.filter((pf) =>
-        pf.skills.some((sk) => sk.toLowerCase() === profession.toLowerCase())
+      const getname = await professionals.findAll();
+      const result = getname.filter(
+      (person) => person.profession.toLowerCase().indexOf(profession.toLowerCase()) == 0
       );
       if (!filter) {
         if (result.length) return res.send(result);

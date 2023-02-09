@@ -30,12 +30,12 @@ const users =
       town: {
         //lugar donde esta ubicado
         type: DataTypes.STRING,
-         allowNull: true,
+        allowNull: true,
       },
       contact: {
         // numero del profesional
         type: DataTypes.STRING,
-         allowNull: true,
+        allowNull: true,
       },
       deleted: {
         //borrado logico
@@ -48,16 +48,10 @@ const users =
       },
       token: {
         type: DataTypes.STRING,
-        allowNull: true,
+        defaultValue: "user",
       },
-      role: {
-        type: DataTypes.ENUM,
-        values: ['admin', 'user', "professional"],
-        defaultValue: 'user',
-      } 
-
-
     },
+
     {
       timestamps: false,
     }
