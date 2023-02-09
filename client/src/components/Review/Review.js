@@ -22,7 +22,7 @@ const Review = () => {
 
   const [input, setInput] = useState({
     review_comment: "",
-    userId: "685427dc-0be7-4591-b82f-f2567355b4f4",
+    userId: "8547a433-2fa9-455f-a659-6d87c186f910",
     professionalId: id,
   });
   // console.log(id, "id");
